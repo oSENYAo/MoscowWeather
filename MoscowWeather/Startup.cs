@@ -1,18 +1,21 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
+using Mithra.Core.Infrastructure;
+using MoscowWeather.Core.Infrastrucrure;
+using MoscowWeather.Data;
+using MoscowWeather.Web.Infrastructure;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MoscowWeather
 {
     public class Startup
     {
+        private IEngine _engine;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +26,12 @@ namespace MoscowWeather
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<MoscowWeatherContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMemoryCache();
+            //_engine = EngineContext.Create();
+
+            _engine.RegisterDependencies(services, new List<IDependencyRegistrar>() { new DependencyRegistrar() });
             services.AddControllersWithViews();
         }
 
