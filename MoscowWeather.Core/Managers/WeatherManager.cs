@@ -24,5 +24,17 @@ namespace MoscowWeather.Core.Managers
         {
             return await _context.Weathers.ToListAsync();
         }
+        public async Task AddWeatherAsync(Weather weather)
+        {
+            if (weather != null)
+                 await _context.Weathers.AddAsync(weather);
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddWeathersAsync(List<Weather> weathers)
+        {
+            await _context.Weathers.AddRangeAsync(weathers);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
