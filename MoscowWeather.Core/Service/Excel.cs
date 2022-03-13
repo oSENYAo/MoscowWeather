@@ -1,14 +1,21 @@
-﻿using NPOI.HSSF.UserModel;
+﻿using MoscowWeather.Core.Managers;
+using MoscowWeather.Data.Domain;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace MoscowWeather.Core.Service
 {
     public class Excel : Office
     {
+        private readonly WeatherManager _weatherManager;
+
+        public Excel(WeatherManager weatherManager)
+        {
+            _weatherManager = weatherManager;
+        }
         public override void Read(string filePath)
         {
             IWorkbook workbook = null;
@@ -21,53 +28,56 @@ namespace MoscowWeather.Core.Service
             {
                 workbook = new HSSFWorkbook(fs);
             }
-
             ISheet sheet = workbook.GetSheetAt(0);
             if (sheet != null)
             {
-                var listString = new List<List<string>>();
+                var date = new DateTime();
+                double time = 0.0;
                 int rowCount = sheet.LastRowNum;
                 for (int i = 4; i <= rowCount; i++)
                 {
                     IRow curRow = sheet.GetRow(i);
-                    var cellValue0 = Check(curRow.GetCell(0));
-                    var cellValue1 = Check(curRow.GetCell(1));
-                    var cellValue2 = Check(curRow.GetCell(2));
-                    var cellValue3 = Check(curRow.GetCell(3));
-                    var cellValue4 = Check(curRow.GetCell(4));
-                    var cellValue5 = Check(curRow.GetCell(5));
-                    var cellValue6 = Check(curRow.GetCell(6));
-                    var cellValue7 = Check(curRow.GetCell(7));
-                    var cellValue8 = Check(curRow.GetCell(8));
-                    var cellValue9 = Check(curRow.GetCell(9));
-                    var cellValue10 = Check(curRow.GetCell(10));
-                    var cellValue11 = Check(curRow.GetCell(11));
-                    listString.Add(new List<string>
+                    var date0 = Check(curRow.GetCell(0));               
+                    var time1 = Check(curRow.GetCell(1));
+                    var airTemperature2 = Check(curRow.GetCell(2));
+                    var Rel_humidity3 = Check(curRow.GetCell(3));
+                    var DewPoint4 = Check(curRow.GetCell(4));
+                    var Pressure5 = Check(curRow.GetCell(5));
+                    var DirectionWind6 = Check(curRow.GetCell(6));
+                    var SpeedWind7 = Check(curRow.GetCell(7));
+                    var cloudy8 = Check(curRow.GetCell(8));
+                    var CloudBase9 = Check(curRow.GetCell(9));
+                    var HorizontalVisibility10 = Check(curRow.GetCell(10));
+                    var WeatherConditions11 = Check(curRow.GetCell(11));
+                    date = String.IsNullOrWhiteSpace(date0) ? DateTime.Today : Convert.ToDateTime(date0);
+                    time = String.IsNullOrWhiteSpace(time1) ? 0.0 : Convert.ToDateTime(time1).TimeOfDay.TotalHours;
+                    date = date.AddHours(time);
+                    _weatherManager.AddWeatherAsync(new Weather
                     {
-                        cellValue0,
-                        cellValue1,
-                        Convert.ToString(cellValue2),
-                        Convert.ToString(cellValue3),
-                        Convert.ToString(cellValue4),
-                        Convert.ToString(cellValue5),
-                        cellValue6,
-                        Convert.ToString(cellValue7),
-                        Convert.ToString(cellValue8),
-                        Convert.ToString(cellValue9),
-                        Convert.ToString(cellValue10),
-                        cellValue11
+                        Date = date,
+                        AirTemperature = String.IsNullOrWhiteSpace(airTemperature2) ? (float)0.0 : Convert.ToSingle(airTemperature2),
+                        Rel_humidity = Rel_humidity3,
+                        DewPoint = String.IsNullOrWhiteSpace(DewPoint4) ? (float)0.0 : Convert.ToSingle(DewPoint4),
+                        Pressure = String.IsNullOrWhiteSpace(Pressure5) ? (int)0 : int.Parse(Pressure5),
+                        DirectionWind = DirectionWind6,
+                        SpeedWind = SpeedWind7,
+                        cloudy = cloudy8,
+                        CloudBase = String.IsNullOrWhiteSpace(CloudBase9) ? (int)0 : int.Parse(CloudBase9),
+                        HorizontalVisibility = String.IsNullOrWhiteSpace(HorizontalVisibility10) ? (int)0 : int.Parse(HorizontalVisibility10),
+                        WeatherConditions = WeatherConditions11
                     });
                 }
-
-                return ;
+                _weatherManager.Save();
+                Remove(filePath);
             }
-            return ;
         }
         public override void Remove(string filePath)
         {
-            //    Add real. Remove file
+            if (File.Exists(filePath))
+                    File.Delete(filePath);
         }
-        #region
+
+        #region Util
         private string Check(NPOI.SS.UserModel.ICell cell)
         {
             if (cell != null)
