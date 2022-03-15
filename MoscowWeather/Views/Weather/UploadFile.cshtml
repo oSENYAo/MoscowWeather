@@ -1,12 +1,22 @@
-﻿<form enctype="multipart/form-data" method="post" asp-controller="Weather" asp-action="UploadFile">
-    <dl>
-        <dt>
-            <label>Upload</label>
-        </dt>
-        <dd>
-            <input type="file" name="FormFile" id="FormFile" multiple />
+﻿<div class="upload-excel">
+    <div class="img-excel">
+        <img width="200" src="~/images/Excel_Cloud-Database.jpg" />
+        <div id="progress-bar" class="prog-bar" style="display:none"></div>
+    </div>
 
-        </dd>
-    </dl>
-    <input class="btn" type="submit" value="Upload" />
-</form>
+    <div class="form-upload">
+        <form enctype="multipart/form-data" method="post" asp-controller="Weather" asp-action="UploadFile">
+            <dl>
+                <dd>
+                    <input type="file" name="FormFile" id="FormFile" multiple />
+                </dd>
+            </dl>
+            <button onclick="ShowProgressBar()" class="button-sub" type="submit">Upload file(s)</button>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function ShowProgressBar() {
+        $("#progress-bar").css("display:", "");
+    }
+</script>

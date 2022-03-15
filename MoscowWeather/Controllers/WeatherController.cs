@@ -11,6 +11,8 @@ using MoscowWeather.Web.Factories;
 using MoscowWeather.Core.Service;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using System.IO;
+using System.Linq;
+using MoscowWeather.Web.Models.Weather;
 
 namespace MoscowWeather.Web.Controllers
 {
@@ -44,6 +46,11 @@ namespace MoscowWeather.Web.Controllers
         public async Task<IActionResult> UploadFile(List<IFormFile> FormFile)
         {
             var path = "";
+            if (FormFile.Count <= 0)
+            {
+                _notyfService.Information("Please select file(s)");
+                return RedirectToAction("UploadFile");
+            }
             try
             {
                 foreach (var formFile in FormFile)
@@ -70,11 +77,17 @@ namespace MoscowWeather.Web.Controllers
                 _notyfService.Error(ex.Message + " " + path.Substring(7));
                 _excel.Remove(_appEnvironment.WebRootPath + path);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("UploadFile");
         }
-        public IActionResult FilesInfo()
+        public IActionResult List()
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult List(int id)
+        {
+            return View();
+        }
+
     }
 }
