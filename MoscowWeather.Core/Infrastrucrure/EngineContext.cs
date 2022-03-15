@@ -16,5 +16,17 @@ namespace MoscowWeather.Core.Infrastrucrure
             //create NopEngine as engine
             return Singleton<IEngine>.Instance ?? (Singleton<IEngine>.Instance = new WeatherEngine());
         }
+        public static IEngine Current
+        {
+            get
+            {
+                if (Singleton<IEngine>.Instance == null)
+                {
+                    Create();
+                }
+
+                return Singleton<IEngine>.Instance;
+            }
+        }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MoscowWeather.Core.Infrastrucrure;
+using MoscowWeather.Core.Managers;
+using MoscowWeather.Core.Service;
+using MoscowWeather.Web.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +16,13 @@ namespace MoscowWeather.Web.Infrastructure
 
         public void Register(IServiceCollection services)
         {
-            throw new NotImplementedException();
+            services.AddScoped<WeatherManager>();
+            services.AddScoped<Excel>();
+
+
+
+            services.AddScoped<WeatherFactories>();
+            
         }
     }
 }
