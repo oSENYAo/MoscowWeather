@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoscowWeather.Web", "Moscow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoscowWeather.Data", "MoscowWeather.Data\MoscowWeather.Data.csproj", "{AE4558F1-5B14-46C1-92CA-97BA6532575D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoscowWeather.Core", "MoscowWeather.Core\MoscowWeather.Core.csproj", "{10269CE1-B473-4716-BA12-6D6CEC73517E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AE4558F1-5B14-46C1-92CA-97BA6532575D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE4558F1-5B14-46C1-92CA-97BA6532575D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE4558F1-5B14-46C1-92CA-97BA6532575D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10269CE1-B473-4716-BA12-6D6CEC73517E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10269CE1-B473-4716-BA12-6D6CEC73517E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10269CE1-B473-4716-BA12-6D6CEC73517E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10269CE1-B473-4716-BA12-6D6CEC73517E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

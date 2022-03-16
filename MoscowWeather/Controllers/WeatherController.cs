@@ -81,9 +81,9 @@ namespace MoscowWeather.Web.Controllers
             }
             return RedirectToAction("UploadFile");
         }
-        public async Task<IActionResult> List()
+        public IActionResult List()
         {
-            var model =  await _weatherFactories.PrepareWeatherListModel();
+            var model =  _weatherFactories.PrepareWeatherListModel().GetAwaiter().GetResult();
             return View(model);
         }
         [HttpPost]

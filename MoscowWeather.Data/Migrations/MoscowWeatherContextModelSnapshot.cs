@@ -47,8 +47,8 @@ namespace MoscowWeather.Data.Migrations
                     b.Property<int>("Pressure")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rel_humidity")
-                        .HasColumnType("int");
+                    b.Property<float>("Rel_humidity")
+                        .HasColumnType("real");
 
                     b.Property<string>("SpeedWind")
                         .HasColumnType("nvarchar(max)");
@@ -56,8 +56,8 @@ namespace MoscowWeather.Data.Migrations
                     b.Property<string>("WeatherConditions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("cloudy")
-                        .HasColumnType("int");
+                    b.Property<float>("cloudy")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
