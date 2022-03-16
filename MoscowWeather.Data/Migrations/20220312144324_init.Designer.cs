@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoscowWeather.Data;
 
 namespace MoscowWeather.Data.Migrations
 {
     [DbContext(typeof(MoscowWeatherContext))]
-    partial class MoscowWeatherContextModelSnapshot : ModelSnapshot
+    [Migration("20220312144324_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,8 +49,8 @@ namespace MoscowWeather.Data.Migrations
                     b.Property<int>("Pressure")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rel_humidity")
-                        .HasColumnType("int");
+                    b.Property<string>("Rel_humidity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SpeedWind")
                         .HasColumnType("nvarchar(max)");
@@ -56,8 +58,8 @@ namespace MoscowWeather.Data.Migrations
                     b.Property<string>("WeatherConditions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("cloudy")
-                        .HasColumnType("int");
+                    b.Property<string>("cloudy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

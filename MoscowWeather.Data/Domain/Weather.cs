@@ -20,8 +20,8 @@ namespace MoscowWeather.Data.Domain
         public string WeatherConditions { get; set; }   // погодные явления
 
 
-        public string Rel_humidity { get; set; }   // Отн. влажность воздуха проценты
-        public string cloudy { get; set; }   // Облачность проценты
+        public int Rel_humidity { get; set; }   // Отн. влажность воздуха проценты
+        public int cloudy { get; set; }   // Облачность проценты
 
 
 
