@@ -13,6 +13,8 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using System.IO;
 using System.Linq;
 using MoscowWeather.Web.Models.Weather;
+using MoscowWeather.Web.Models.Pagination;
+using Microsoft.EntityFrameworkCore;
 
 namespace MoscowWeather.Web.Controllers
 {
@@ -79,14 +81,23 @@ namespace MoscowWeather.Web.Controllers
             }
             return RedirectToAction("UploadFile");
         }
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            return View();
+            var model =  await _weatherFactories.PrepareWeatherListModel();
+            return View(model);
         }
         [HttpPost]
-        public IActionResult List(int id)
+        public IActionResult GetListWeathers([FromBody] WeatherSearchModel @params)
         {
-            return View();
+            var result = _weatherFactories.PrepareWeatherSearchModel(@params.Page, @params.ItemPerPage,
+                @params.StartMonth, @params.EndMonth, @params.StartYear, @params.EndYear).GetAwaiter().GetResult();
+            
+            return Ok(new 
+            {
+                Data = result.Item1,
+                PagMetaData = result.Item2,
+                Succes = true
+            });
         }
 
     }

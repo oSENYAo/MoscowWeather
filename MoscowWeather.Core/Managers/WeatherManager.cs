@@ -38,5 +38,29 @@ namespace MoscowWeather.Core.Managers
         {
             await _context.SaveChangesAsync();
         }
+        public async Task<List<Weather>> WeatherSearch(            
+            int? startMonth = null,
+            int? endMonth = null,
+            int? startYear = null,
+            int? endYear = null)
+        {
+            var weather = await _context.Weathers.OrderBy(x => x.Date)
+                .Where(x => 
+                       ((startMonth == null) || x.Date.Month >= startMonth)
+                    && ((endMonth == null) || x.Date.Month <= endMonth)
+                    && ((startYear == null) || x.Date.Year >= startYear)
+                    && ((endYear == null) || x.Date.Year <= endYear))
+                .ToListAsync();
+
+            return weather;
+        }
+        public async Task<List<int>> GetAllMonthAsync()
+        {
+            return await _context.Weathers.Select(x => x.Date.Month).Distinct().OrderBy(x => ((uint)x)).ToListAsync();
+        }
+        public async Task<List<int>> GetAllYearsAsync()
+        {
+            return await _context.Weathers.Select(x => x.Date.Year).Distinct().OrderBy(x => ((uint)x)).ToListAsync();
+        }
     }
 }
