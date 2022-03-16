@@ -67,12 +67,12 @@ namespace MoscowWeather.Core.Service
                         {
                             Date = date,
                             AirTemperature = String.IsNullOrWhiteSpace(airTemperature2) ? (float)0.0 : Convert.ToSingle(airTemperature2),
-                            Rel_humidity = String.IsNullOrWhiteSpace(Rel_humidity3) ? (int)0 : int.Parse(Rel_humidity3),
+                            Rel_humidity = String.IsNullOrWhiteSpace(Rel_humidity3) ? (float)0 : Convert.ToSingle(Rel_humidity3),
                             DewPoint = String.IsNullOrWhiteSpace(DewPoint4) ? (float)0.0 : Convert.ToSingle(DewPoint4),
                             Pressure = String.IsNullOrWhiteSpace(Pressure5) ? (int)0 : int.Parse(Pressure5),
                             DirectionWind = DirectionWind6,
                             SpeedWind = SpeedWind7,
-                            cloudy = String.IsNullOrWhiteSpace(cloudy8) ? (int)0 : int.Parse(cloudy8),
+                            cloudy = String.IsNullOrWhiteSpace(cloudy8) ? (float)0 : Convert.ToSingle(cloudy8),
                             CloudBase = String.IsNullOrWhiteSpace(CloudBase9) ? (int)0 : int.Parse(CloudBase9),
                             HorizontalVisibility = String.IsNullOrWhiteSpace(HorizontalVisibility10) ? (int)0 : int.Parse(HorizontalVisibility10),
                             WeatherConditions = WeatherConditions11

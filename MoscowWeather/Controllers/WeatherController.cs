@@ -50,7 +50,7 @@ namespace MoscowWeather.Web.Controllers
             var path = "";
             if (FormFile.Count <= 0)
             {
-                _notyfService.Information("Please select file(s)");
+                _notyfService.Information("Please choose file(s)");
                 return RedirectToAction("UploadFile");
             }
             try

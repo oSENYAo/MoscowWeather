@@ -18,7 +18,7 @@ namespace MoscowWeather.Web.Models.Weather
         public int? CloudBase { get; set; }   // Нижняя граница видимости
         public int? HorizontalVisibility { get; set; }   // горизонтальная видимость
         public string WeatherConditions { get; set; }   // погодные явления
-        public int Rel_humidity { get; set; }   // Отн. влажность воздуха проценты
-        public int cloudy { get; set; }   // Облачность проценты
+        public float Rel_humidity { get; set; }   // Отн. влажность воздуха проценты
+        public float cloudy { get; set; }   // Облачность проценты
     }
 }
