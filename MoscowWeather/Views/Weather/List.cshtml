@@ -137,6 +137,7 @@
             </li>
         </ul>
     </nav>
+    <label id="page_numbers" style="margin-left:auto; margin-right:auto; display:table;" class="fw-bolder"></label>
 </div>
 
 <script type="text/javascript">
@@ -175,7 +176,6 @@
         while (paging.firstChild) {
             paging.removeChild(paging.firstChild)
         }
-        
         let previous = document.createElement("li");
         previous.classList.add("page-item");
         let previous_a = document.createElement("a");
@@ -206,14 +206,9 @@
         paging.appendChild(previous);
 
         paging.appendChild(next);
-
-        let page = document.createElement("label");
+        
+        let page = document.getElementById("page_numbers");
         page.textContent = "страница " + PagMetaData.currentPage.toString() + " из " + PagMetaData.totalPages.toString();
-        page.style.classList = "fw-bolder";
-        page.style.marginLeft = "auto";
-        page.style.marginRight = "auto";
-        page.style.display = "table";
-
         document.getElementById("block_pagination");
         block_pagination.appendChild(page);
     }
